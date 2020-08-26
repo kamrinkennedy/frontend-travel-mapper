@@ -1,8 +1,6 @@
-const destinationsContainer = document.querySelector('.destinations-container')
 const destinationForm = document.getElementById('destination-form')
-
-// const addDestinationsDiv = document.getElementById('add-destination-div')
-
+const destinationsAdapter = new DestinationsAdapter
+const destinationsContainer = document.getElementById('destinations-container')
 
 
 function addFormToDom(){
@@ -18,25 +16,6 @@ function addFormToDom(){
         <input type="submit" id="destination-subit"><br><br>`
 }
 
-function fetchDestinations(){
-fetch('http://localhost:3000/destinations')
-    .then(response => response.json())
-    .then(addDestinationsToDom)
-}
-
-function addDestinationsToDom(response){
-    response.forEach( destination => addDestinationToDom(destination) )
-}
-
-function addDestinationToDom(destination) {
-    destinationsContainer.innerHTML += 
-    `<div data-id='${destination.id}' class="card">
-        <h3>${destination.location} - ${destination.locale}</h3>
-        <p>Arrival: ${destination.arrival} Departure: ${destination.departure}</p>
-    </div>`
-}
-
-
 function handleAddDestinationButton(e){
     const destinationForm = document.getElementById('destination-form');
     if (destinationForm.style.display === "none") {
@@ -51,40 +30,57 @@ function handleAddDestinationButton(e){
 function handleDestinationFormSubmit(e){
     e.preventDefault()
 
-    const destinationLocation = document.getElementById('destination-location')
-    const destinationLocale = document.getElementById('destination-locale')
-    const destinationArrival = document.getElementById('destination-arrival')
-    const destinationDeparture = document.getElementById('destination-departure')
+    const location = document.getElementById('destination-location').value
+    const locale = document.getElementById('destination-locale').value
+    const arrival = document.getElementById('destination-arrival').value
+    const departure = document.getElementById('destination-departure').value
     
     let newDestinationObj = {
-        location: destinationLocation.value,
-        locale: destinationLocale.value,
-        arrival: destinationArrival.value,
-        departure: destinationDeparture.value
+        location,
+        locale,
+        arrival,
+        departure
     }
-
-    let configObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({destination: newDestinationObj})
-    }
-
-    fetch('http://localhost:3000/destinations', configObj)
-        .then(response => response.json())
-        .then(json => {
-            addDestinationToDom(json)
-        })
+    destinationsAdapter.createNewDestination(newDestinationObj)        
 }
 
+function handleListClick(e){
+    if ( e.target.className === 'delete' ){
+        destinationsAdapter.deleteDestination(e.target.dataset.id)
+    } else if (e.target.className === 'update') {
+        e.target.innerText = "Save"
+        e.target.className = 'save'
+        updateDestinationFields(e.target.dataset.id);
+    } else if (e.target.className === 'save'){
+        e.target.innerText = "Update"
+        e.target.className = 'update'
+        destinationsAdapter.sendPatchRequest(e.target.dataset.id)
+    }
+}
+
+function updateDestinationFields(id){
+    let destination = Destination.findById(id)
+    // debugger;
+
+    let updateForm = `
+    <input type="text" value="${destination.location}" name="location" id="update-location-${id}">
+    <input type="text" name="locale" value="${destination.locale}" id="update-locale-${id}">
+    <input type="date" name="arrival" value="${destination.arrival}" id="update-arrival-${id}">
+    <input type="date" name="departure" value="${destination.departure}" id="update-departure-${id}">
+    `
+
+    let formDiv = document.createElement('div')
+    formDiv.id = `update-form-${id}`
+    formDiv.innerHTML = updateForm
+    destination.element.querySelector('.whole-form').append(formDiv)
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     addFormToDom();
     const addDestinationButton = document.getElementById('add-destination-button');
     addDestinationButton.addEventListener('click', handleAddDestinationButton)
-    fetchDestinations();
+    destinationsAdapter.fetchDestinations();
     // debugger;
     destinationForm.addEventListener('submit', handleDestinationFormSubmit)
+    destinationsContainer.addEventListener('click', handleListClick)
 })
