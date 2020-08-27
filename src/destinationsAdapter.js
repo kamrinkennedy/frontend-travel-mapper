@@ -3,6 +3,7 @@ class DestinationsAdapter {
         this.baseUrl = "http://localhost:3000/destinations"
     }
 
+    //GET 
     fetchDestinations(){
         fetch(this.baseUrl)
             .then(response => response.json())
@@ -15,6 +16,7 @@ class DestinationsAdapter {
             })
     }
 
+    //CREATE   
     createNewDestination(newDestinationObj){
         let configObj = {
             method: "POST",
@@ -25,7 +27,7 @@ class DestinationsAdapter {
             body: JSON.stringify({destination: newDestinationObj})
         }
     
-        fetch('http://localhost:3000/destinations', configObj)
+        fetch(this.baseUrl, configObj)
             .then(response => response.json())
             .then(json => {
                 let destination = new Destination(json)
@@ -34,6 +36,7 @@ class DestinationsAdapter {
             })    
     }
 
+    //DELETE
     deleteDestination(id) {
 
         //remove destination from DOM
@@ -50,17 +53,14 @@ class DestinationsAdapter {
         }
     
         //remove destination from the database via delete request
-        fetch(`http://localhost:3000/destinations/${id}`, configObj)
+        fetch(this.baseUrl + `/${id}`, configObj)
             .then(response => response.json())
             .then(json => {
                 alert(json.message)
             })
     }
 
-    updateDestinationFields(id){
-
-    }
-
+    //UPDATE
     sendPatchRequest(id){
         const location = document.getElementById(`update-location-${id}`).value
         const locale = document.getElementById(`update-locale-${id}`).value

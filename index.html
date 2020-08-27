@@ -14,12 +14,14 @@
         <h1>Travel Mapper</h1>
 
         <div id="add-destination-div">
-            <h2><input type="button" id="add-destination-button" value="Hide Form"></h2>
+            <h2><input type="button" id="add-destination-button" value="Add Destination"></h2>
             <form method="post" id="destination-form"></form>
         </div>
 
-
-        <div id="destinations-container"></div>
+        <div class="row">
+            <div id="destinations-container" class="column"></div>
+            <div id="activities-container" class="column"></div>
+        </div>
         
         <script src="src/destination.js"></script>
         <script src="src/destinationsAdapter.js"></script>
