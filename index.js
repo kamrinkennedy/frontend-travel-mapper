@@ -4,21 +4,6 @@ const destinationsContainer = document.getElementById('destinations-container')
 const activitiesAdapter = new ActivitiesAdapter
 const activitiesContainer = document.getElementById('activities-container')
 
-
-function addFormToDom(){
-    destinationForm.innerHTML +=
-        `<label for="location">Location:</label><br>
-        <input type="text" name="location" id="destination-location"><br><br>
-        <label for="locale">Locale:</label><br>
-        <input type="text" name="locale" id="destination-locale" placeholder="Beach, City, Woods, Etc."><br><br>
-        <label for="arrival">Arrival Date: </label>
-        <input type="date" name="arrival" id="destination-arrival"><br>
-        <label for="departure">Departure Date: </label>
-        <input type="date" name="departure" id="destination-departure"><br><br>
-        <input type="submit" id="destination-subit"><br><br>`
-    destinationForm.style.display = "none"
-}
-
 //HIDE/SHOW ADD DESTINATION FORM
 function handleAddDestinationButton(e){
     const destinationForm = document.getElementById('destination-form');
@@ -55,38 +40,36 @@ function handleListClick(e){
     if ( e.target.className === 'delete' ){
         destinationsAdapter.deleteDestination(e.target.dataset.id)
     } else if (e.target.className === 'update') {
-        e.target.innerText = "Save"
         e.target.className = 'save'
+        e.target.innerText = "Save"
         updateDestinationFields(e.target.dataset.id);
     } else if (e.target.className === 'save'){
+        destinationsAdapter.sendPatchRequest(e.target.dataset.id)
         e.target.innerText = "Update"
         e.target.className = 'update'
-        destinationsAdapter.sendPatchRequest(e.target.dataset.id)
+
     } else if (e.target.className === 'add-activity-button') {
         let form = e.target.parentElement.parentElement.querySelector('.new-activity-form')
         if (form.style.display === 'none') {
             form.style.display = 'block'
-            e.target.innerText = "Hide"
+            e.target.innerText = "Hide Form"
         } else {
             form.style.display = 'none'
             e.target.innerText = "Add Activity"
         }
     } else if (e.target.className === 'show-activities-button') {
+        let activitiesTitle = document.getElementById('activities-title')
         let destination = Destination.findById(e.target.dataset.id)
+        activitiesTitle.innerText = ''
+        activitiesContainer.innerHTML = ''
         destination.displayActivities();
-        e.target.className = 'hide-activities-button';
-        e.target.innerText = 'Hide Activities';
-    } else if (e.target.className === 'hide-activities-button') {
-        activitiesContainer.innerHTML = '';
-        e.target.className = 'show-activities-button';
-        e.target.innerText = 'Show Activities';
-    }
+    } 
 
 }
 
+//HANDLES ACTIVITY CRUD CLICKS
 function handleActivityClick(e){
     if (e.target.className === "delete-activity") {
-        debugger;
         activitiesAdapter.deleteActivity(e.target.dataset.id)
     }
 }
@@ -94,7 +77,6 @@ function handleActivityClick(e){
 //CHANGES FIELDS IN DESTINATIONS TO BE UPDATEABLE
 function updateDestinationFields(id){
     let destination = Destination.findById(id)
-    // debugger;
 
     let updateForm = `
     <input type="text" value="${destination.location}" name="location" id="update-location-${id}">
@@ -106,7 +88,9 @@ function updateDestinationFields(id){
     let formDiv = document.createElement('div')
     formDiv.id = `update-form-${id}`
     formDiv.innerHTML = updateForm
+    destination.element.querySelector('.whole-form').innerHTML = ''
     destination.element.querySelector('.whole-form').append(formDiv)
+
 }
 
 //HANDLES SUBMITTING NEW ACTIVITY
@@ -129,12 +113,13 @@ function handleActivityFormSubmit(e){
     activitiesAdapter.createNewActivity(newActivityObj);
 }
 
+//INITIAL FETCHES AND EVENT LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
-    addFormToDom();
+    // addFormToDom();
     const addDestinationButton = document.getElementById('add-destination-button');
-    addDestinationButton.addEventListener('click', handleAddDestinationButton);
     destinationsAdapter.fetchDestinations();
     activitiesAdapter.fetchActivities();
+    addDestinationButton.addEventListener('click', handleAddDestinationButton);
     destinationForm.addEventListener('submit', handleDestinationFormSubmit);
     destinationsContainer.addEventListener('click', handleListClick);
     destinationsContainer.addEventListener('submit', handleActivityFormSubmit);

@@ -30,7 +30,12 @@ class ActivitiesAdapter {
         fetch(this.baseUrl, configObj)
             .then(response => response.json())
             .then(json => {
+                if (json.error) {
+                    alert(json.error)
+                } else {
                 let activity = new Activity(json);
+                activity.destination.displayActivities();
+                }
             })
     }
 
@@ -38,6 +43,8 @@ class ActivitiesAdapter {
     deleteActivity(id) {
         let activity = document.getElementById(`activity-${id}`);
         activity.remove();
+        let activityIndex = Activity.all.findIndex( e => e.id == id)
+        Activity.all.splice(activityIndex, 1)
 
         let configObj = {
             method: "DELETE",
@@ -49,9 +56,7 @@ class ActivitiesAdapter {
 
         fetch(this.baseUrl + `/${id}`, configObj)
             .then(response => response.json())
-            .then(json => {
-                alert(json.message)
-            })
+            .then(json => alert(json.message))
     }
 
 }

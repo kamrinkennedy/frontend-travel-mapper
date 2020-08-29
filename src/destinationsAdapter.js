@@ -30,19 +30,35 @@ class DestinationsAdapter {
         fetch(this.baseUrl, configObj)
             .then(response => response.json())
             .then(json => {
+                if (json.error) {
+                    alert(json.error)
+                } else {
                 let destination = new Destination(json)
                 destinationForm.reset();
                 destination.attachToDom();
+                }
             })    
     }
 
     //DELETE
     deleteDestination(id) {
-
         //remove destination from DOM
         let dest = document.getElementById(`destination-${id}`)
+        let title = document.getElementById('activities-title')
+        let container = document.getElementById('activities-container')
         dest.remove();
-    
+        let destinationIndex = Destination.all.findIndex( e => e.id == id )
+        
+        //if activities are being displayed, clear them from dom
+        // debugger;
+        if (title.innerText != '') {
+            if (title.innerText.replace(' Activities', '') === Destination.findById(id).location) {
+                title.innerText = ''
+                container.innerHTML = ''
+            }
+        }
+        Destination.all.splice(destinationIndex, 1)
+        
         //config object for delete request specs
         let configObj = {
             method: "DELETE",
@@ -51,8 +67,9 @@ class DestinationsAdapter {
                 'Accept': "application/json"
             }
         }
-    
+        
         //remove destination from the database via delete request
+        //also removes associated activities
         fetch(this.baseUrl + `/${id}`, configObj)
             .then(response => response.json())
             .then(json => {
@@ -87,8 +104,12 @@ class DestinationsAdapter {
         fetch(this.baseUrl + `/${id}`, configObj)
             .then(response => response.json())
             .then(json => {
+                if (json.error) {
+                    alert(json.error)
+                } else {
                 let destination = Destination.findById(id)
                 destination.updateDestinationOnDom(json)
+                }
             })
     }
 }

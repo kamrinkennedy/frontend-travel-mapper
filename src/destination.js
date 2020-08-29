@@ -37,11 +37,15 @@ class Destination {
         this.locale = locale;
         this.arrival = arrival;
         this.departure = departure;
-        // debugger;
         this.fullRender()
     }
 
     displayActivities = () => {
+        let div = document.getElementById('activities-title')
+        let container = document.getElementById('activities-container')
+        div.innerHTML = `<h1>${this.location} Activities</h1>`
+        container.innerHTML = ''
+
         this.activities.forEach( activity => {
             activity.attachToDom();
         })
@@ -50,12 +54,12 @@ class Destination {
 
     fullRender(){
         this.element.innerHTML =
-        `<span class="whole-form"
-        <h3><span class="location">${this.location}</span> - <span class="locale">${this.locale}</span></h3>
+        `<span class="whole-form">
+        <h3><strong><span class="location">${this.location}</span> - <span class="locale">${this.locale}</span></strong></h3>
         <p>Arrival: <span class="arrival">${this.arrival}</span> Departure: <span class="departure">${this.departure}</span></p>
+        </span>
         <p><button class="delete" data-id="${this.id}">Delete</button> | 
         <button class="update" data-id="${this.id}">Update</button></p><br>
-        </span>
 
         <p>Activities: <button class="add-activity-button">Add Activity</button> | 
         <button class="show-activities-button" data-id="${this.id}">Show Activities</button></p>

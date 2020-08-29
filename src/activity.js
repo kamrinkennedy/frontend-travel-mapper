@@ -4,6 +4,9 @@ class Activity {
     static findById = function(id) {
         Activity.findById( e => e.id == id)
     }
+    get destination() {
+        return Destination.findById(this.destination_id)
+    }
 
     constructor({name, description, cost, id, destination_id}) {
         this.name = name;
@@ -26,9 +29,10 @@ class Activity {
 
     fullRender(){
         this.element.innerHTML =
-        `<h4><strong><span class="name">${this.name}</span></strong></h4>
-        <p><span class="description">${this.description}</span> <br>Cost: <span class="cost">${this.cost}</span></p>
+        `<h3><strong><span class="name">${this.name}</span></strong></h3>
+        <p><span class="description">${this.description}</span><br><br>Cost: <span class="cost">${this.cost}</span></p>
         <button class="delete-activity" data-id="${this.id}">Delete</button> | <button class="update-activity" data-id="${this.id}">Update</button>
+        <br><br>
         `
         return this.element
     }
