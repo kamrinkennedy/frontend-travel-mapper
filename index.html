@@ -11,29 +11,42 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <span class="title"><h1>Travel Planner</h1></span>
-
-        <div id="add-destination-div">
-            <h2><input type="button" id="add-destination-button" value="Add Destination"></h2>
-            <form method="post" id="destination-form" style="display: none">        
-                <label for="location">Location:</label><br>
-                <input type="text" name="location" id="destination-location"><br><br>
-                <label for="locale">Locale:</label><br>
-                <input type="text" name="locale" id="destination-locale" placeholder="Beach, City, Woods, Etc."><br><br>
-                <label for="arrival">Arrival Date: </label>
-                <input type="date" name="arrival" id="destination-arrival"><br>
-                <label for="departure">Departure Date: </label>
-                <input type="date" name="departure" id="destination-departure"><br><br>
-                <input type="submit" id="destination-subit"><br><br>
-            </form>
+        <div class="header">
+            <h1>Travel Planner</h1>
+            <p>Your trip starts here</p>
+            <div id="add-destination-div">
+                <form method="post" id="destination-form" style="display: none">
+                    <div class="form-container">
+                        <div class="column">         
+                            <label for="location">Location: </label>
+                            <input type="text" name="location" id="destination-location">
+                            <label for="locale">Locale: </label>
+                            <input type="text" name="locale" id="destination-locale" placeholder="Beach, City, Woods, Etc.">
+                        </div>
+                        <div class="column">
+                            <label for="arrival">Arrival Date: </label>
+                            <input type="date" name="arrival" id="destination-arrival">
+                            <label for="departure">Departure Date: </label>
+                            <input type="date" name="departure" id="destination-departure"><br><br>
+                        </div>
+                    </div>
+                    <input type="submit" id="destination-submit" class="button">
+                    <button class="button" id="cancel-form-button">Cancel</button><br><br>
+                </form>
+                <input type="button" id="add-destination-button" value="Add Destination" class="button">
+            </div>
         </div>
-
+        <div class="content">
+            
+            
+            
         
         <div id="destinations-container"></div>
         <div id="activities-title" class="title"></div>
         <div id="activities-container"></div>
-        
-        
+        </div>
+
+        <script src="src/dateParser.js"></script>
         <script src="src/destination.js"></script>
         <script src="src/destinationsAdapter.js"></script>
         <script src="src/activity.js"></script>

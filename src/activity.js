@@ -31,7 +31,7 @@ class Activity {
         this.element.innerHTML =
         `<h3><strong><span class="name">${this.name}</span></strong></h3>
         <p><span class="description">${this.description}</span><br><br>Cost: <span class="cost">${this.cost}</span></p>
-        <button class="delete-activity" data-id="${this.id}">Delete</button> | <button class="update-activity" data-id="${this.id}">Update</button>
+        <button class="delete-activity button" data-id="${this.id}">Delete</button>
         <br><br>
         `
         return this.element

@@ -3,18 +3,25 @@ const destinationsAdapter = new DestinationsAdapter
 const destinationsContainer = document.getElementById('destinations-container')
 const activitiesAdapter = new ActivitiesAdapter
 const activitiesContainer = document.getElementById('activities-container')
+const addDestinationButton = document.getElementById('add-destination-button');
 
 //HIDE/SHOW ADD DESTINATION FORM
 function handleAddDestinationButton(e){
     const destinationForm = document.getElementById('destination-form');
-    if (destinationForm.style.display === "none") {
+    if (e.target.value === "Add Destination") {
         destinationForm.style.display = "block";
-        e.target.value = "Hide Form"
-    } else {
-        destinationForm.style.display = "none";
-        e.target.value = "Add Destination"
-    }
+        addDestinationButton.style.display = "none"
+    } 
 }
+
+function cancelForm(e) {
+    e.preventDefault()
+    destinationForm.style.display = "none"
+    addDestinationButton.style.display = "block"
+    // destinationForm.parentElement.innerHTML += `<input type="button" id="add-destination-button" value="Add Destination" class="button">`
+}
+
+
 
 //HANDLES SUBMITTING NEW DESTINATION
 function handleDestinationFormSubmit(e){
@@ -37,18 +44,18 @@ function handleDestinationFormSubmit(e){
 //HANDLES UPDATE/SAVE FOR DESTINATIONS
 //HIDE/SHOW ADD ACTIVITY FORM
 function handleListClick(e){
-    if ( e.target.className === 'delete' ){
+    if ( e.target.className.includes('delete') ){
         destinationsAdapter.deleteDestination(e.target.dataset.id)
-    } else if (e.target.className === 'update') {
-        e.target.className = 'save'
+    } else if (e.target.className.includes('update')) {
+        e.target.className = 'save button'
         e.target.innerText = "Save"
         updateDestinationFields(e.target.dataset.id);
-    } else if (e.target.className === 'save'){
+    } else if (e.target.className.includes('save')){
         destinationsAdapter.sendPatchRequest(e.target.dataset.id)
         e.target.innerText = "Update"
-        e.target.className = 'update'
+        e.target.className = 'update button'
 
-    } else if (e.target.className === 'add-activity-button') {
+    } else if (e.target.className.includes('add-activity-button')) {
         let form = e.target.parentElement.parentElement.querySelector('.new-activity-form')
         if (form.style.display === 'none') {
             form.style.display = 'block'
@@ -57,7 +64,7 @@ function handleListClick(e){
             form.style.display = 'none'
             e.target.innerText = "Add Activity"
         }
-    } else if (e.target.className === 'show-activities-button') {
+    } else if (e.target.className.includes('show-activities-button')) {
         let activitiesTitle = document.getElementById('activities-title')
         let destination = Destination.findById(e.target.dataset.id)
         activitiesTitle.innerText = ''
@@ -79,10 +86,20 @@ function updateDestinationFields(id){
     let destination = Destination.findById(id)
 
     let updateForm = `
-    <input type="text" value="${destination.location}" name="location" id="update-location-${id}">
-    <input type="text" name="locale" value="${destination.locale}" id="update-locale-${id}">
-    <input type="date" name="arrival" value="${destination.arrival}" id="update-arrival-${id}">
-    <input type="date" name="departure" value="${destination.departure}" id="update-departure-${id}">
+    <div class="form-container">
+        <div class="column">
+            <label for="location">Location: </label>
+            <input type="text" value="${destination.location}" name="location" id="update-location-${id}">
+            <label for="locale">Locale: </label>
+            <input type="text" name="locale" value="${destination.locale}" id="update-locale-${id}">
+        </div>
+        <div class="column">
+            <label for="arrival">Arrival: </label>
+            <input type="date" name="arrival" value="${destination.arrival}" id="update-arrival-${id}">
+            <label for="departure">Departure: </label>
+            <input type="date" name="departure" value="${destination.departure}" id="update-departure-${id}">
+        </div>
+    </div>
     `
 
     let formDiv = document.createElement('div')
@@ -117,6 +134,7 @@ function handleActivityFormSubmit(e){
 document.addEventListener('DOMContentLoaded', () => {
     // addFormToDom();
     const addDestinationButton = document.getElementById('add-destination-button');
+    const cancelButton = document.getElementById('cancel-form-button')
     destinationsAdapter.fetchDestinations();
     activitiesAdapter.fetchActivities();
     addDestinationButton.addEventListener('click', handleAddDestinationButton);
@@ -124,4 +142,5 @@ document.addEventListener('DOMContentLoaded', () => {
     destinationsContainer.addEventListener('click', handleListClick);
     destinationsContainer.addEventListener('submit', handleActivityFormSubmit);
     activitiesContainer.addEventListener('click', handleActivityClick)
+    cancelButton.addEventListener('click', cancelForm)
 });

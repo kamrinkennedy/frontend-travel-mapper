@@ -53,28 +53,32 @@ class Destination {
 
 
     fullRender(){
+        // debugger;
         this.element.innerHTML =
         `<span class="whole-form">
         <h3><strong><span class="location">${this.location}</span> - <span class="locale">${this.locale}</span></strong></h3>
-        <p>Arrival: <span class="arrival">${this.arrival}</span> Departure: <span class="departure">${this.departure}</span></p>
+        <p>Arrival: <span class="arrival">${ new DateParser(this.arrival).fullDate }</span> | 
+        Departure: <span class="departure">${ new DateParser(this.departure).fullDate }</span></p>
         </span>
-        <p><button class="delete" data-id="${this.id}">Delete</button> | 
-        <button class="update" data-id="${this.id}">Update</button></p><br>
+        <p class="destination-buttons"><button class="delete button" data-id="${this.id}">Delete</button>  
+        <button class="update button" data-id="${this.id}">Update</button></p><br>
 
-        <p>Activities: <button class="add-activity-button">Add Activity</button> | 
-        <button class="show-activities-button" data-id="${this.id}">Show Activities</button></p>
+        <p class="destination-buttons"><button class="add-activity-button button">Add Activity</button>  
+        <button class="show-activities-button button" data-id="${this.id}">Show Activities</button></p>
 
         <form class="new-activity-form" method="POST">
-        <label for="name">Name: </label>
+        <label for="name">Name:</label><br>
         <input type="text" name="name" class="destination-activity-name"><br>
-        <label for="description">Description: </label>
+        <label for="description">Description:</label><br>
         <input type="text" name="description" class="destination-activity-description"><br>
-        <label for="cost">Cost: </label>
+        <label for="cost">Cost:</label><br>
         <input type="text" name="cost" class="destination-activity-cost"><br>
         <input type="hidden" class="destination-id" name="destination_id" value="${this.id}">
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" id="activity-submit-button" class="button">
         </form>
         `
+
+
         let form = this.element.querySelector(".new-activity-form")
         form.style.display = "none"
         return this.element;

@@ -1,29 +1,57 @@
-.title {
+body {
+  font-family: Arial;
+  margin: 0;
   text-align: center;
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  background-image: url("https://pixabay.com/get/55e5d6444252ad14f6d1867dda293f7f1537dfe45b4c704c7c2773d6934cc658_1920.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+
+#add-destination-div {
+  display: flex;
+  justify-content: center;
+}
+
+#add-destination-button {
+  background-color: rgb(100, 100, 240)
+}
+
+#add-destination-button:hover {
+  background-color: rgb(26, 26, 105)
+}
+
+
+#destination-form {
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.header {
+  padding: 3px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+}
+
 .card {
-  border: 5px solid teal;
-  /* margin-right: 50px; */
-  background-color: rgb(128, 214, 240);
-  border-radius: 10px;
+  background-color: rgba(128, 214, 240, 0.938);
+  border-radius: 8px;
   padding: 1vw;
-  border: 1px solid;
+  border: 2px solid;
   padding: 10px;
-  box-shadow: 5px 10px #88888859;
+  font-size: 25px;
   }
 
 .activity-card {
-  border: 3px solid black;
-  margin-right: 50px;
-  margin-bottom: 50px;
-  margin-top: 50px;
-  background-color: lightgray;
-  border-radius: 10px;
+  background-color: rgba(255, 163, 110, 0.938);
+  border-radius: 5px;
   padding: 1vw;
-  border: 1px solid;
+  border: 2px solid;
   padding: 10px;
-  box-shadow: 5px 10px #88888859;
+  font-size: 25px;
 }
 
 #destinations-container {
@@ -31,6 +59,7 @@
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin: 10px;
   align-items: flex-start;
 }
 
@@ -40,4 +69,129 @@
   justify-content: space-around;
   flex-wrap: wrap;
   align-items: flex-start;
+  margin: 10px;
+}
+
+.button {
+  background-color: #4CAF50;
+  border: 1px solid black;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+
+}
+
+.button:hover {
+  background-color: rgb(25, 85, 1);
+}
+
+.destination-buttons{
+  text-align: center;
+} 
+
+.delete {
+  background-color: rgb(241, 119, 119);
+}
+.delete:hover {
+  background-color: rgb(255, 42, 42);
+}
+
+.delete-activity {
+  background-color: rgb(241, 119, 119);
+}
+
+.delete-activity:hover {
+  background-color: rgb(255, 42, 42);
+}
+
+#activities-title {
+  background-color: rgba(255, 255, 255, 0.835);
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  margin-left: 750px;
+  margin-right: 750px;
+}
+
+.new-activity-form {
+  text-align: left;
+  border: 5px solid black;
+  background-color: rgba(177, 184, 248, 0.438);
+  padding: 1vw;
+  border-radius: 5px;
+}
+
+#destination-form {
+  border: 5px solid black;
+  background-color: rgba(177, 184, 248, 0.945);
+  padding: 1vw;
+  border-radius: 5px;
+  font-size: 25px;
+  color: black;
+  text-align: left;
+
+}
+
+input[type=text], select {
+  width: 300px;
+  height: 50px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 50%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=date], select {
+  width: 250px;
+  height: 50px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-container {
+  display: flex;
+}
+
+.column {
+  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+}
+
+#cancel-form-button {
+  width: 50%;
+  background-color: rgb(241, 119, 119);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#cancel-form-button:hover {
+  background-color: rgb(255, 42, 42);
 }
