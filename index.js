@@ -1,11 +1,11 @@
-const destinationForm = document.getElementById('destination-form')
 const destinationsAdapter = new DestinationsAdapter
-const destinationsContainer = document.getElementById('destinations-container')
 const activitiesAdapter = new ActivitiesAdapter
+const destinationForm = document.getElementById('destination-form')
+const destinationsContainer = document.getElementById('destinations-container')
 const activitiesContainer = document.getElementById('activities-container')
 const addDestinationButton = document.getElementById('add-destination-button');
 
-//HIDE/SHOW ADD DESTINATION FORM
+//SHOW ADD DESTINATION FORM
 function handleAddDestinationButton(e){
     const destinationForm = document.getElementById('destination-form');
     if (e.target.value === "Add Destination") {
@@ -14,14 +14,13 @@ function handleAddDestinationButton(e){
     } 
 }
 
+//CANCEL ADD DESTINATION FORM
 function cancelForm(e) {
     e.preventDefault()
     destinationForm.style.display = "none"
     addDestinationButton.style.display = "block"
     // destinationForm.parentElement.innerHTML += `<input type="button" id="add-destination-button" value="Add Destination" class="button">`
 }
-
-
 
 //HANDLES SUBMITTING NEW DESTINATION
 function handleDestinationFormSubmit(e){
@@ -76,7 +75,7 @@ function handleListClick(e){
 
 //HANDLES ACTIVITY CRUD CLICKS
 function handleActivityClick(e){
-    if (e.target.className === "delete-activity") {
+    if (e.target.className.includes("delete-activity")) {
         activitiesAdapter.deleteActivity(e.target.dataset.id)
     }
 }
