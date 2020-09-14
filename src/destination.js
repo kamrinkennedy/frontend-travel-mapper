@@ -61,7 +61,7 @@ class Destination {
         Departure: <span class="departure">${ new DateParser(this.departure).fullDate }</span></p>
         </span>
         <p class="destination-buttons"><button class="delete button" data-id="${this.id}">Delete</button>  
-        <button class="update button" data-id="${this.id}">Update</button></p><br>
+        <button class="update button" data-id="${this.id}">Update</button></p>
 
         <p class="destination-buttons"><button class="add-activity-button button">Add Activity</button>  
         <button class="show-activities-button button" data-id="${this.id}">Show Activities</button></p>

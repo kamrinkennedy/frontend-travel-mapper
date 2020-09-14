@@ -4,6 +4,7 @@ const destinationForm = document.getElementById('destination-form')
 const destinationsContainer = document.getElementById('destinations-container')
 const activitiesContainer = document.getElementById('activities-container')
 const addDestinationButton = document.getElementById('add-destination-button');
+const searchForm = document.getElementById('search-form')
 
 //SHOW ADD DESTINATION FORM
 function handleAddDestinationButton(e){
@@ -129,6 +130,23 @@ function handleActivityFormSubmit(e){
     activitiesAdapter.createNewActivity(newActivityObj);
 }
 
+//HANDLES SEARCH SUBMIT
+function handleSearchForm(e) {
+    debugger;
+    e.preventDefault()
+
+    let searchValue = e.target[0].value
+    let destinations = Destination.all.filter( destination => {
+        return destination.location === searchValue
+    })
+    console.log(destinations)
+
+    destinationsContainer.innerHTML = ''
+    destinations.forEach( destination => {
+        destination.attachToDom()
+    })
+}
+
 //INITIAL FETCHES AND EVENT LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
     // addFormToDom();
@@ -142,4 +160,5 @@ document.addEventListener('DOMContentLoaded', () => {
     destinationsContainer.addEventListener('submit', handleActivityFormSubmit);
     activitiesContainer.addEventListener('click', handleActivityClick)
     cancelButton.addEventListener('click', cancelForm)
+    searchForm.addEventListener('submit', handleSearchForm)
 });

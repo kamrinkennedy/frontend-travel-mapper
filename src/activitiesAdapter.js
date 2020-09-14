@@ -1,6 +1,6 @@
 class ActivitiesAdapter {
     constructor(){
-        this.baseUrl = 'http://localhost:3000/activities'
+        this.baseUrl = 'https://limitless-caverns-63496.herokuapp.com/activities'
     }
 
     //GET
