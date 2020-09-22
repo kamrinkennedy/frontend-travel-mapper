@@ -1,5 +1,5 @@
 # README
-# Barmaid's Tale
+# Travel Planner
 
 Travel Planner is a Ruby backend API using HTML, JavaScript, and CSS for the frontend. The application allows the user to add/update/remove Destination trips as well as add/remove Activities to each Destination. The application uses JavsScript to visually update the DOM and interact with the backend without refreshing the page.
 
