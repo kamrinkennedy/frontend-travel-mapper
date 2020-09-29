@@ -5,7 +5,7 @@ Travel Planner is a Ruby backend API using HTML, JavaScript, and CSS for the fro
 
 ## Getting Started
 
-Find repository here: (https://github.com/kamrinkennedy/barmaids_tale)
+Find repository here: (https://github.com/kamrinkennedy/frontend-travel-mapper)
 
 ### Prerequisites
 
@@ -54,7 +54,7 @@ Use Ctrl-C to stop
 
 ## Contributing
 
-If interested in contributing, please send all pull requests to (https://github.com/kamrinkennedy/barmaids_tale)
+If interested in contributing, please send all pull requests to (https://github.com/kamrinkennedy/frontend-travel-mapper)
 
 
 ## Authors
